@@ -7,7 +7,17 @@ import { connection } from 'mongoose';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot('mongodb://localhost/local'),
+    MongooseModule.forRoot('mongodb://localhost/local', {
+      connectionFactory: (connection) => {
+        console.log(
+          'Mongo Conectado em: ',
+          connection.host,
+          connection.port,
+          connection.name,
+        );
+        return connection;
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
