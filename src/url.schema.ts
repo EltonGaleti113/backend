@@ -1,15 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema()
-export class Url extends Document {
-  @Prop()
-  urlcode: string;
+export type UrlDocument = Url & Document;
 
-  @Prop()
+@Schema({ timestamps: true })
+export class Url extends Document {
+  @Prop({ required: true, unique: true })
+  urlCode: string;
+
+  @Prop({ required: true })
   originalUrl: string;
 
-  @Prop()
+  @Prop({ required: true, unique: true })
   shortenUrl: string;
 }
 

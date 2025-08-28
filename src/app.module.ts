@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { connection } from 'mongoose';
+import { Url, UrlSchema } from './url.schema';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -18,6 +18,7 @@ import { connection } from 'mongoose';
         return connection;
       },
     }),
+    MongooseModule.forFeature([{name: Url.name, schema: UrlSchema}])
   ],
   controllers: [AppController],
   providers: [AppService],
